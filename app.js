@@ -13,7 +13,9 @@ class Character {
 
     _moveDown(self) {
         console.log(self._top);
-        if (self._top >= game.clientHeight - 80) {
+
+        //Можно забыть прибавить game.offsetTop
+        if (self._top >= game.clientHeight - 80 + game.offsetTop) {
             game.dispatchEvent(crashEvent);
             return;
         }
@@ -126,3 +128,15 @@ document.addEventListener("crash", gameOverHandler);
 
 
 
+var blocks = document.getElementById("blocks");
+var hole = document.getElementById("hole");
+
+var blocks_hight = 500; //?
+var hole_hight = 150; //?
+
+//our hole every iteration must be on a different hight
+
+hole.addEventListener('animationiteration', () => {
+    var random = -(Math.random()*300 + hole_hight); /* от 150 до 450 */
+    hole.style.top = random + "px";
+});
