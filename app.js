@@ -1,17 +1,40 @@
+class Character{
+    constructor(){
+
+    }
+
+    render(){
+        const character = document.getElementById("character");
+
+        //здесь тоже можно все сломать, убрав game.offsetLeft
+        character.style.left = 20 + game.offsetLeft + "px";
+        //40px == половина высоты character
+        character.style.top = 0.5 * game.clientHeight - 40 + "px";
+        let characterImage = document.createElement("img");
+        characterImage.src = "images/character.svg";
+        characterImage.style.width = "100%";
+        characterImage.style.height = "100%";
+        character.append(characterImage);
+    }
+}
+
 let crashEvent = new Event("crash", {bubbles: true});
 const game = document.getElementById("game");
 
-const gameOverHandler = (event) => {
 
+const getCharacterTop = () => {
+    const character = document.getElementById("character");
+}
+
+
+const renderGameOverTab = () => {
     let gameOverWindow = document.createElement("div")
-
 
     let gameOverText = document.createElement("span");
     gameOverText.append("Game over")
 
     gameOverWindow.append(gameOverText);
     game.append(gameOverWindow);
-
 
     gameOverWindow.style.position = "absolute";
     gameOverWindow.style.width = "300px";
@@ -36,19 +59,13 @@ const gameOverHandler = (event) => {
     console.log("client left " + game.clientLeft);
 }
 
+const gameOverHandler = (event) => {
+    renderGameOverTab();
 
-const addCharacter = () => {
-    const character = document.getElementById("character");
-    let characterImage = document.createElement("img");
-    characterImage.src = "images/character.svg";
-    characterImage.style.width = "80px";
-    characterImage.style.height = "80px";
-    character.append(characterImage);
-
-
-};
+}
 
 document.addEventListener("crash", gameOverHandler);
-addCharacter();
 
-game.dispatchEvent(crashEvent);
+let character = new Character();
+character.render();
+

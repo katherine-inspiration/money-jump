@@ -5,3 +5,9 @@
     background-color: #ffeada;
     border: 1px #000000 solid;
 }
+
+#character{
+    position: absolute;
+    height: 80px;
+    width: 80px;
+}
