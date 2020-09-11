@@ -138,7 +138,7 @@ var blocks = document.getElementById("blocks");
 var hole = document.getElementById("hole");
 
 var blocks_hight = 500; //?
-var hole_hight = 150; //?
+var hole_hight = 200; //?
 
 //our hole every iteration must be on a different hight
 

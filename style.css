@@ -1,7 +1,7 @@
 #character{
     position: absolute;
-    height: 80px;
-    width: 80px;
+    height: 50px;
+    width: 50px;
 }
 
 #ground{
@@ -34,7 +34,7 @@
     left: 500px;
     top: -500px;  /* при top = 0px дыру почему-то не видно(*/
     position: relative;
-    animation: blocks 2s infinite linear;
+    animation: blocks 3s infinite linear;
 }
 
 #blocks{
@@ -43,7 +43,7 @@
     background-color: darkgreen;
     position: relative;
     left: 500px;   /* width of the game window */
-    animation: blocks 2s infinite linear;  /* движение непрерывно и линейно */
+    animation: blocks 3s infinite linear;  /* движение непрерывно и линейно */
 
 }
 
