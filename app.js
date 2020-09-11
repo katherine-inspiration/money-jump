@@ -1,15 +1,69 @@
-class Character{
-    constructor(){
+const MOVE_DOWN_TIMER_INTERVAL = 1;
+const JUMP_TIMER_INTERVAL = 1;
+const JUMP_HEIGHT = 300;
+const JUMP_SPEED = 0.5;
+
+class Character {
+    constructor() {
+        const character = document.getElementById("character");
+        this._top = 0.5 * game.clientHeight - 40;
+        character.style.top = this._top + "px";
+        this._downTimerID = setInterval(() => this._moveDown(this), MOVE_DOWN_TIMER_INTERVAL);
+    }
+
+    _moveDown(self) {
+        console.log(self._top);
+        if (self._top >= game.clientHeight - 85) {
+            game.dispatchEvent(crashEvent);
+            return;
+        }
+        self._top += 1;
+        const character = document.getElementById("character");
+        character.style.top = self._top + "px";
+        console.log("Down character");
+        console.log(self._top);
+    }
+
+    //Можно "забыть" остановить снижение при проигрыше
+    stopMoving() {
+        if (this._downTimerID) {
+            clearInterval(this._downTimerID);
+            this._downTimerID = null;
+            return true;
+        }
+        return false;
+    }
+
+    jump() {
+        if (this._jumpTimerID && this._endJumpTimerID) {
+            clearInterval(this._jumpTimerID)
+            clearTimeout(this._endJumpTimerID);
+        }
+
+        this.stopMoving();
+        const character = document.getElementById("character");
+        const goUpper = (distance) => {
+            if (this._top <= 10){
+                game.dispatchEvent(crashEvent);
+            }
+            this._top = Math.max(10, this._top - distance);
+            character.style.top = this._top + "px";
+        }
+        this._jumpTimerID = setInterval(() => goUpper(1), 1.0 / JUMP_SPEED);
+        this._endJumpTimerID = setTimeout(() => {
+            clearInterval(this._jumpTimerID);
+            this._downTimerID = setInterval(() => this._moveDown(this), MOVE_DOWN_TIMER_INTERVAL);
+        }, JUMP_HEIGHT / JUMP_SPEED);
+
 
     }
 
-    render(){
+    render() {
         const character = document.getElementById("character");
-
         //здесь тоже можно все сломать, убрав game.offsetLeft
         character.style.left = 20 + game.offsetLeft + "px";
         //40px == половина высоты character
-        character.style.top = 0.5 * game.clientHeight - 40 + "px";
+        character.style.top = this._top + "px";
         let characterImage = document.createElement("img");
         characterImage.src = "images/character.svg";
         characterImage.style.width = "100%";
@@ -20,11 +74,6 @@ class Character{
 
 let crashEvent = new Event("crash", {bubbles: true});
 const game = document.getElementById("game");
-
-
-const getCharacterTop = () => {
-    const character = document.getElementById("character");
-}
 
 
 const renderGameOverTab = () => {
@@ -59,13 +108,21 @@ const renderGameOverTab = () => {
     console.log("client left " + game.clientLeft);
 }
 
+let character = new Character();
+character.render();
+
+document.addEventListener("mousedown", (event) => {
+    character.jump();
+})
+
+
 const gameOverHandler = (event) => {
     renderGameOverTab();
+    character.stopMoving();
 
 }
 
 document.addEventListener("crash", gameOverHandler);
 
-let character = new Character();
-character.render();
+
 
