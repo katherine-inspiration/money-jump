@@ -3,6 +3,12 @@ const JUMP_TIMER_INTERVAL = 1;
 const JUMP_HEIGHT = 300;
 const JUMP_SPEED = 0.5;
 
+
+//TODO Add restart button
+//TODO Add crash event on bump into blocks
+//TODO Add score
+//TODO Stop blocks after game over
+
 class Character {
     constructor() {
         const character = document.getElementById("character");
@@ -27,7 +33,7 @@ class Character {
     }
 
     //Можно "забыть" остановить снижение при проигрыше
-    stopMoving() {
+    stopMovingDown() {
         if (this._downTimerID) {
             clearInterval(this._downTimerID);
             this._downTimerID = null;
@@ -42,13 +48,13 @@ class Character {
             clearTimeout(this._endJumpTimerID);
         }
 
-        this.stopMoving();
+        this.stopMovingDown();
         const character = document.getElementById("character");
         const goUpper = (distance) => {
-            if (this._top <= 10){
+            if (this._top <= 1 + game.offsetTop){
                 game.dispatchEvent(crashEvent);
             }
-            this._top = Math.max(10, this._top - distance);
+            this._top = Math.max(1 + game.offsetTop, this._top - distance);
             character.style.top = this._top + "px";
         }
         this._jumpTimerID = setInterval(() => goUpper(1), 1.0 / JUMP_SPEED);
@@ -120,7 +126,7 @@ document.addEventListener("mousedown", (event) => {
 
 const gameOverHandler = (event) => {
     renderGameOverTab();
-    character.stopMoving();
+    character.stopMovingDown();
 
 }
 
