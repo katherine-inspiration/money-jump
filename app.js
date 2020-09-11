@@ -13,7 +13,7 @@ class Character {
 
     _moveDown(self) {
         console.log(self._top);
-        if (self._top >= game.clientHeight - 85) {
+        if (self._top >= game.clientHeight - 80) {
             game.dispatchEvent(crashEvent);
             return;
         }

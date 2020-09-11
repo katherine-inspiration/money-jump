@@ -2,6 +2,7 @@
     width: 500px;
     height: 500px;
     margin: auto auto;
+    padding: 0;
     background-color: #ffeada;
     border: 1px #000000 solid;
 }
@@ -10,4 +11,12 @@
     position: absolute;
     height: 80px;
     width: 80px;
+}
+
+#ground{
+    height: 10px;
+    width: inherit;
+    background-color: darkred;
+    position: absolute;
+    top: 500px;
 }
