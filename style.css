@@ -1,0 +1,36 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+#game {
+    width: 500px;
+    height: 500px;
+    border: 1px solid black;
+    margin: auto;
+}
+
+#hole {
+    width: 50px;
+    height: 150px;
+    background-color: white;
+    left: 500px;
+    top: -500px;  /* при top = 0px дыру почему-то не видно(*/
+    position: relative;
+    animation: blocks 2s infinite linear;
+}
+
+#blocks{
+    width: 50px;
+    height: 500px;  /* height of the game window*/
+    background-color: darkgreen;
+    position: relative;
+    left: 500px;   /* width of the game window */
+    animation: blocks 2s infinite linear;  /* движение непрерывно и линейно */
+}
+
+@keyframes blocks{  /* animation for element with id = block*/
+    from {left: 500;}
+    to {left: 0;}
+}
+
